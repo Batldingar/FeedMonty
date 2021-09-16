@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_text"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textColor="@color/black"
+        android:fontFamily="@font/grandstander_semi_bold_italic"
         android:padding="10dp"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +33,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/monty_idle_1"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <android.widget.Button
         android:id="@+id/start_button"
