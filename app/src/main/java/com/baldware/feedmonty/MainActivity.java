@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -21,12 +23,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Baldware Games");
 
+        // Activity Properties
+        setTitle("Baldware Games");
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        GifImageView gifImageView = findViewById(R.id.start_gif);
+        // UI Animation
+        Animation leftwardsFade = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
+        Button button = findViewById(R.id.start_button);
+        button.startAnimation(leftwardsFade);
 
+        Animation rightwardsFade = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
+        GifImageView gifImageView = findViewById(R.id.start_gif);
+        gifImageView.startAnimation(rightwardsFade);
+
+        Animation downwardsFade = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
+        TextView textView = findViewById(R.id.start_text);
+        textView.startAnimation(downwardsFade);
+
+        // Monty On Press Reaction
+        gifImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText(R.string.start_text_emphasized);
+            }
+        });
+
+
+        // Content Animation
         countDownTimer = new CountDownTimer(5000, 3000) {
             int previousAnimationID;
 

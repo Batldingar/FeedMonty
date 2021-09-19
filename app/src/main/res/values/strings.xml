@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Feed Monty</string>
     <string name="start_text">Monty would like you to press the button!</string>
+    <string name="start_text_emphasized">That\'s Monty, not the button!</string>
 </resources>
