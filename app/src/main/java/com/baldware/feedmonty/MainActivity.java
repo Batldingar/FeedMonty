@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Activity Properties
         setTitle("Baldware Games");
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // UI Animation
         Animation leftwardsFade = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
