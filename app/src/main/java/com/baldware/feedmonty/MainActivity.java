@@ -3,6 +3,7 @@ package com.baldware.feedmonty;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,23 +29,56 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Baldware Games");
 
         // UI Animation
-        Animation leftwardsFade = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
-        Button button = findViewById(R.id.start_button);
-        button.startAnimation(leftwardsFade);
-
-        Animation rightwardsFade = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
+        Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
         GifImageView gifImageView = findViewById(R.id.start_gif);
-        gifImageView.startAnimation(rightwardsFade);
+        gifImageView.startAnimation(rightwardsAppear);
 
-        Animation downwardsFade = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
+        Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
+        Button button = findViewById(R.id.start_button);
+        button.startAnimation(leftwardsAppear);
+
+        Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
         TextView textView = findViewById(R.id.start_text);
-        textView.startAnimation(downwardsFade);
+        textView.startAnimation(downwardsAppear);
 
-        // Monty On Press Reaction
+        // Monty On Press
         gifImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 textView.setText(R.string.start_text_emphasized);
+            }
+        });
+
+        // Button On Press
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation leftwardsDisappear = AnimationUtils.loadAnimation(MainActivity.this, R.anim.leftwards_disappear);
+                gifImageView.startAnimation(leftwardsDisappear);
+                button.startAnimation(leftwardsDisappear);
+
+                leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        gifImageView.setVisibility(View.INVISIBLE);
+                        button.setVisibility(View.INVISIBLE);
+                        textView.setVisibility(View.INVISIBLE);
+
+                        startActivity(new Intent(MainActivity.this, IngredientsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                textView.startAnimation(leftwardsDisappear);
+
             }
         });
 
