@@ -18,6 +18,12 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // UI Elements
+    private GifImageView gifImageView;
+    private Button button;
+    private TextView textView;
+
+    // Tools
     private CountDownTimer countDownTimer;
 
     @Override
@@ -30,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         // UI Animation
         Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
-        GifImageView gifImageView = findViewById(R.id.start_gif);
+        gifImageView = findViewById(R.id.start_gif);
         gifImageView.startAnimation(rightwardsAppear);
 
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
-        Button button = findViewById(R.id.start_button);
+        button = findViewById(R.id.start_button);
         button.startAnimation(leftwardsAppear);
 
         Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
-        TextView textView = findViewById(R.id.start_text);
+        textView = findViewById(R.id.start_text);
         textView.startAnimation(downwardsAppear);
 
         // Monty On Press
@@ -121,5 +127,16 @@ public class MainActivity extends AppCompatActivity {
                 countDownTimer.start();
             }
         }.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(gifImageView.getVisibility() == View.INVISIBLE) {
+            gifImageView.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 }

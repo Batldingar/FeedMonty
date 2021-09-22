@@ -3,4 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
