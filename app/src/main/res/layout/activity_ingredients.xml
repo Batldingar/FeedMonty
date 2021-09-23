@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <GridView
         android:id="@+id/grid_view"
@@ -10,5 +11,48 @@
         android:numColumns="3"
         android:horizontalSpacing="20dp"
         android:verticalSpacing="20dp" />
+
+    <ImageView
+        android:id="@+id/image_view_one"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/teal_700"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/image_view_two"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/image_view_two"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/teal_700"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"/>
+
+
+    <ImageView
+        android:id="@+id/image_view_three"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/teal_700"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toRightOf="@id/image_view_two"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

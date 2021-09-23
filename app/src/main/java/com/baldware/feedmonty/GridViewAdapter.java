@@ -7,31 +7,33 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class GridViewAdapter extends BaseAdapter {
 
     private Context context;
-    private int[] imageIDArray;
+    private ArrayList<Integer> imageIDList;
 
     private LayoutInflater layoutInflater;
 
-    public GridViewAdapter(Context context, int[] imageIDArray) {
+    public GridViewAdapter(Context context, ArrayList<Integer> imageIDList) {
         this.context = context;
-        this.imageIDArray = imageIDArray;
+        this.imageIDList = imageIDList;
     }
 
     @Override
     public int getCount() {
-        return imageIDArray.length;
+        return imageIDList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return imageIDArray[i];
+        return imageIDList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return imageIDArray[i];
+        return imageIDList.get(i);
     }
 
     @Override
@@ -45,8 +47,13 @@ public class GridViewAdapter extends BaseAdapter {
         }
 
         ImageView imageView = view.findViewById(R.id.grid_item_image_view);
-        imageView.setImageResource(imageIDArray[i]);
+        imageView.setImageResource(imageIDList.get(i));
 
         return view;
+    }
+
+    public void removeItemAt(int i) {
+        imageIDList.remove(i);
+        notifyDataSetChanged();
     }
 }
