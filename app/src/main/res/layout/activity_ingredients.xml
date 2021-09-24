@@ -19,10 +19,46 @@
         app:layout_constraintVertical_bias="0.0"/>
 
     <ImageView
-        android:id="@+id/image_view_one"
+        android:id="@+id/image_view_one_empty"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/teal_700"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/image_view_two_empty" />
+
+    <ImageView
+        android:id="@+id/image_view_two_empty"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/teal_700"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/image_view_three_empty"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/teal_700"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintLeft_toRightOf="@id/image_view_two_empty"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_view_one"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +72,6 @@
         android:id="@+id/image_view_two"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/teal_700"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +86,6 @@
         android:id="@+id/image_view_three"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/teal_700"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"

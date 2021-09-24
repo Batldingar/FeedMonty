@@ -55,6 +55,10 @@ public class IngredientsActivity extends AppCompatActivity {
         ImageView imageViewTwo = findViewById(R.id.image_view_two);
         ImageView imageViewThree = findViewById(R.id.image_view_three);
 
+        ImageView imageViewOneEmpty = findViewById(R.id.image_view_one_empty);
+        ImageView imageViewTwoEmpty = findViewById(R.id.image_view_two_empty);
+        ImageView imageViewThreeEmpty = findViewById(R.id.image_view_three_empty);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -72,6 +76,56 @@ public class IngredientsActivity extends AppCompatActivity {
                     imageViewThree.setImageResource((Integer)gridViewAdapter.getItem(i));
                     imageViewThree.startAnimation(forwardsAppear);
                     imageViewThree.setVisibility(View.VISIBLE);
+
+                    forwardsAppear.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            Animation leftwardsDisappear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.leftwards_disappear);
+                            gridView.startAnimation(leftwardsDisappear);
+                            imageViewOne.startAnimation(leftwardsDisappear);
+                            imageViewOneEmpty.startAnimation(leftwardsDisappear);
+                            imageViewTwo.startAnimation(leftwardsDisappear);
+                            imageViewTwoEmpty.startAnimation(leftwardsDisappear);
+                            imageViewThree.startAnimation(leftwardsDisappear);
+                            imageViewThreeEmpty.startAnimation(leftwardsDisappear);
+                            leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    gridView.setVisibility(View.INVISIBLE);
+                                    imageViewOne.setVisibility(View.INVISIBLE);
+                                    imageViewOneEmpty.setVisibility(View.INVISIBLE);
+                                    imageViewTwo.setVisibility(View.INVISIBLE);
+                                    imageViewTwoEmpty.setVisibility(View.INVISIBLE);
+                                    imageViewThree.setVisibility(View.INVISIBLE);
+                                    imageViewThreeEmpty.setVisibility(View.INVISIBLE);
+
+                                    // TODO: Start new activity that fades in leftwards
+                                    // and then lets the icons "fall" into the bottle while the bottle is being animated
+                                    // Parse the three ingredients by using intent extras
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
                 }
 
                 gridViewAdapter.removeItemAt(i);
@@ -81,5 +135,16 @@ public class IngredientsActivity extends AppCompatActivity {
         // UI Animation
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
         gridView.startAnimation(leftwardsAppear);
+
+        Animation upwardsAppearOne = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
+        Animation upwardsAppearTwo = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
+        Animation upwardsAppearThree = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
+
+        upwardsAppearOne.setStartOffset(500);
+        imageViewOneEmpty.startAnimation(upwardsAppearOne);
+        upwardsAppearTwo.setStartOffset(750);
+        imageViewTwoEmpty.startAnimation(upwardsAppearTwo);
+        upwardsAppearThree.setStartOffset(1000);
+        imageViewThreeEmpty.startAnimation(upwardsAppearThree);
     }
 }
