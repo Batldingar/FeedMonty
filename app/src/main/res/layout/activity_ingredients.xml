@@ -7,10 +7,16 @@
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:numColumns="3"
         android:horizontalSpacing="20dp"
-        android:verticalSpacing="20dp" />
+        android:verticalSpacing="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/image_view_two"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
 
     <ImageView
         android:id="@+id/image_view_one"

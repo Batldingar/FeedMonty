@@ -1,5 +1,6 @@
 package com.baldware.feedmonty;
 
+import android.media.Image;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
