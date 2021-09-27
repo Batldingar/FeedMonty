@@ -1,5 +1,6 @@
 package com.baldware.feedmonty;
 
+import android.content.Intent;
 import android.media.Image;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -59,21 +60,26 @@ public class IngredientsActivity extends AppCompatActivity {
         ImageView imageViewTwoEmpty = findViewById(R.id.image_view_two_empty);
         ImageView imageViewThreeEmpty = findViewById(R.id.image_view_three_empty);
 
+        int[] chosenImageIDArray = new int[3];
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Animation forwardsAppear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.forwards_appear);
 
                 if(imageViewOne.getVisibility() == View.INVISIBLE) {
-                    imageViewOne.setImageResource((Integer)gridViewAdapter.getItem(i));
+                    chosenImageIDArray[0] = (Integer)gridViewAdapter.getItem(i);
+                    imageViewOne.setImageResource(chosenImageIDArray[0]);
                     imageViewOne.startAnimation(forwardsAppear);
                     imageViewOne.setVisibility(View.VISIBLE);
                 } else if(imageViewTwo.getVisibility() == View.INVISIBLE) {
-                    imageViewTwo.setImageResource((Integer)gridViewAdapter.getItem(i));
+                    chosenImageIDArray[1] = (Integer)gridViewAdapter.getItem(i);
+                    imageViewTwo.setImageResource(chosenImageIDArray[1]);
                     imageViewTwo.startAnimation(forwardsAppear);
                     imageViewTwo.setVisibility(View.VISIBLE);
                 } else if(imageViewThree.getVisibility() == View.INVISIBLE) {
-                    imageViewThree.setImageResource((Integer)gridViewAdapter.getItem(i));
+                    chosenImageIDArray[2] = (Integer)gridViewAdapter.getItem(i);
+                    imageViewThree.setImageResource(chosenImageIDArray[2]);
                     imageViewThree.startAnimation(forwardsAppear);
                     imageViewThree.setVisibility(View.VISIBLE);
 
@@ -112,6 +118,13 @@ public class IngredientsActivity extends AppCompatActivity {
                                     // TODO: Start new activity that fades in leftwards
                                     // and then lets the icons "fall" into the bottle while the bottle is being animated
                                     // Parse the three ingredients by using intent extras
+                                    Intent intent = new Intent(IngredientsActivity.this, MixingActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    intent.putExtra("chosen_ingredients", chosenImageIDArray);
+                                    startActivity(intent);
+
+                                    // Finish this activity so that when the next one opens the back button
+                                    // will bring the user back to the main activity
+                                    finish();
                                 }
 
                                 @Override
