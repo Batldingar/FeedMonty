@@ -16,41 +16,41 @@
 
     <ImageView
         android:id="@+id/ingredient_image_view_one"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@id/mixing_gif"
         app:layout_constraintTop_toTopOf="@id/mixing_gif"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.9"
         android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/ingredient_image_view_two"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@id/mixing_gif"
         app:layout_constraintTop_toTopOf="@id/mixing_gif"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.9"
         android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/ingredient_image_view_three"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:padding="10dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@id/mixing_gif"
         app:layout_constraintTop_toTopOf="@id/mixing_gif"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.9"
         android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

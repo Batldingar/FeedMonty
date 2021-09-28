@@ -24,7 +24,7 @@ public class IngredientsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ingredients);
 
         // Activity Properties
-        setTitle("Select three ingredients!");
+        setTitle(R.string.ingredients_activity_title);
 
         // Ingredients Grid View Populating
         ArrayList<Integer> ingredientsImageIDList = new ArrayList<>();
@@ -48,8 +48,29 @@ public class IngredientsActivity extends AppCompatActivity {
         ingredientsImageIDList.add(R.drawable.food_sushi);
         ingredientsImageIDList.add(R.drawable.food_tea);
 
+        ArrayList<Integer> ingredientsValueList = new ArrayList<>();
+        ingredientsValueList.add(-1);
+        ingredientsValueList.add(0);
+        ingredientsValueList.add(0);
+        ingredientsValueList.add(1);
+        ingredientsValueList.add(2);
+        ingredientsValueList.add(3);
+        ingredientsValueList.add(4);
+        ingredientsValueList.add(5);
+        ingredientsValueList.add(10);
+        ingredientsValueList.add(12);
+        ingredientsValueList.add(13);
+        ingredientsValueList.add(14);
+        ingredientsValueList.add(15);
+        ingredientsValueList.add(20);
+        ingredientsValueList.add(22);
+        ingredientsValueList.add(23);
+        ingredientsValueList.add(24);
+        ingredientsValueList.add(25);
+        ingredientsValueList.add(30);
+
         GridView gridView = findViewById(R.id.grid_view);
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(this, ingredientsImageIDList);
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(this, ingredientsImageIDList, ingredientsValueList);
         gridView.setAdapter(gridViewAdapter);
 
         ImageView imageViewOne = findViewById(R.id.image_view_one);
@@ -61,6 +82,7 @@ public class IngredientsActivity extends AppCompatActivity {
         ImageView imageViewThreeEmpty = findViewById(R.id.image_view_three_empty);
 
         int[] chosenImageIDArray = new int[3];
+        int[] chosenValueArray = new int[3];
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,16 +91,19 @@ public class IngredientsActivity extends AppCompatActivity {
 
                 if(imageViewOne.getVisibility() == View.INVISIBLE) {
                     chosenImageIDArray[0] = (Integer)gridViewAdapter.getItem(i);
+                    chosenValueArray[0] = gridViewAdapter.getItemValue(i);
                     imageViewOne.setImageResource(chosenImageIDArray[0]);
                     imageViewOne.startAnimation(forwardsAppear);
                     imageViewOne.setVisibility(View.VISIBLE);
                 } else if(imageViewTwo.getVisibility() == View.INVISIBLE) {
                     chosenImageIDArray[1] = (Integer)gridViewAdapter.getItem(i);
+                    chosenValueArray[1] = gridViewAdapter.getItemValue(i);
                     imageViewTwo.setImageResource(chosenImageIDArray[1]);
                     imageViewTwo.startAnimation(forwardsAppear);
                     imageViewTwo.setVisibility(View.VISIBLE);
                 } else if(imageViewThree.getVisibility() == View.INVISIBLE) {
                     chosenImageIDArray[2] = (Integer)gridViewAdapter.getItem(i);
+                    chosenValueArray[2] = gridViewAdapter.getItemValue(i);
                     imageViewThree.setImageResource(chosenImageIDArray[2]);
                     imageViewThree.startAnimation(forwardsAppear);
                     imageViewThree.setVisibility(View.VISIBLE);
@@ -115,11 +140,10 @@ public class IngredientsActivity extends AppCompatActivity {
                                     imageViewThree.setVisibility(View.INVISIBLE);
                                     imageViewThreeEmpty.setVisibility(View.INVISIBLE);
 
-                                    // TODO: Start new activity that fades in leftwards
-                                    // and then lets the icons "fall" into the bottle while the bottle is being animated
                                     // Parse the three ingredients by using intent extras
                                     Intent intent = new Intent(IngredientsActivity.this, MixingActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     intent.putExtra("chosen_ingredients", chosenImageIDArray);
+                                    intent.putExtra("chosen_value", chosenValueArray[0] + chosenValueArray[1] + chosenValueArray[2]);
                                     startActivity(intent);
 
                                     // Finish this activity so that when the next one opens the back button

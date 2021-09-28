@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class MixingActivity extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class MixingActivity extends AppCompatActivity {
 
         // Intent Extras
         int[] imageIDArray = getIntent().getIntArrayExtra("chosen_ingredients");
+        int chosenValue = getIntent().getIntExtra("chosen_value", 0);
 
         ImageView imageViewOne = findViewById(R.id.ingredient_image_view_one);
         ImageView imageViewTwo = findViewById(R.id.ingredient_image_view_two);
@@ -76,6 +79,36 @@ public class MixingActivity extends AppCompatActivity {
                                     @Override
                                     public void onAnimationEnd(Animation animation) {
                                         imageViewThree.setVisibility(View.INVISIBLE);
+                                        setTitle(R.string.mixing_activity_title);
+
+                                        gifImageView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Animation leftwardsDisappear = AnimationUtils.loadAnimation(MixingActivity.this, R.anim.leftwards_disappear);
+
+                                                leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
+                                                    @Override
+                                                    public void onAnimationStart(Animation animation) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onAnimationEnd(Animation animation) {
+                                                        gifImageView.setVisibility(View.INVISIBLE);
+                                                        Intent intent = new Intent(MixingActivity.this, ScoreActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                        intent.putExtra("score", chosenValue + (new Random().nextInt(10) - 8)); // random from -8 to 1 so that the score can change but can't go over 80
+                                                        startActivity(intent);
+                                                    }
+
+                                                    @Override
+                                                    public void onAnimationRepeat(Animation animation) {
+
+                                                    }
+                                                });
+
+                                                gifImageView.startAnimation(leftwardsDisappear);
+                                            }
+                                        });
                                     }
 
                                     @Override

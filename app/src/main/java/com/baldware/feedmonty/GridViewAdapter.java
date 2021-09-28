@@ -13,12 +13,14 @@ public class GridViewAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Integer> imageIDList;
+    private ArrayList<Integer> imageValueList;
 
     private LayoutInflater layoutInflater;
 
-    public GridViewAdapter(Context context, ArrayList<Integer> imageIDList) {
+    public GridViewAdapter(Context context, ArrayList<Integer> imageIDList, ArrayList<Integer> imageValueList) {
         this.context = context;
         this.imageIDList = imageIDList;
+        this.imageValueList = imageValueList;
     }
 
     @Override
@@ -34,6 +36,10 @@ public class GridViewAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return imageIDList.get(i);
+    }
+
+    public int getItemValue(int i) {
+        return imageValueList.get(i);
     }
 
     @Override

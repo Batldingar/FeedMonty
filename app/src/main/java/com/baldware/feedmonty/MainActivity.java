@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private GifImageView gifImageView;
     private Button button;
     private TextView textView;
+    private ImageView infoButton;
 
     // Tools
     private CountDownTimer countDownTimer;
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Baldware Games");
 
         // UI Animation
+        Animation forwardsAppear = AnimationUtils.loadAnimation(this, R.anim.forwards_appear);
+        infoButton = findViewById(R.id.info_button);
+        infoButton.startAnimation(forwardsAppear);
+
         Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
         gifImageView = findViewById(R.id.start_gif);
         gifImageView.startAnimation(rightwardsAppear);
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Animation leftwardsDisappear = AnimationUtils.loadAnimation(MainActivity.this, R.anim.leftwards_disappear);
                 gifImageView.startAnimation(leftwardsDisappear);
                 button.startAnimation(leftwardsDisappear);
+                infoButton.startAnimation(leftwardsDisappear);
 
                 leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -74,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         gifImageView.setVisibility(View.INVISIBLE);
                         button.setVisibility(View.INVISIBLE);
                         textView.setVisibility(View.INVISIBLE);
+                        infoButton.setVisibility(View.INVISIBLE);
 
                         startActivity(new Intent(MainActivity.this, IngredientsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     }
@@ -88,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Info Button On Press
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: Add AGBs
+            }
+        });
 
         // Content Animation
         countDownTimer = new CountDownTimer(5000, 3000) {
@@ -137,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             gifImageView.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
+            infoButton.setVisibility(View.VISIBLE);
         }
     }
 }
