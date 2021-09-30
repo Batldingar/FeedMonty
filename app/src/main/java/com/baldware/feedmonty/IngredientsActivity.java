@@ -49,25 +49,25 @@ public class IngredientsActivity extends AppCompatActivity {
         ingredientsImageIDList.add(R.drawable.food_tea);
 
         ArrayList<Integer> ingredientsValueList = new ArrayList<>();
+        ingredientsValueList.add(24);
         ingredientsValueList.add(-1);
+        ingredientsValueList.add(20);
         ingredientsValueList.add(0);
+        ingredientsValueList.add(15);
         ingredientsValueList.add(0);
+        ingredientsValueList.add(30);
         ingredientsValueList.add(1);
+        ingredientsValueList.add(25);
         ingredientsValueList.add(2);
-        ingredientsValueList.add(3);
+        ingredientsValueList.add(23);
         ingredientsValueList.add(4);
-        ingredientsValueList.add(5);
         ingredientsValueList.add(10);
         ingredientsValueList.add(12);
         ingredientsValueList.add(13);
-        ingredientsValueList.add(14);
-        ingredientsValueList.add(15);
-        ingredientsValueList.add(20);
         ingredientsValueList.add(22);
-        ingredientsValueList.add(23);
-        ingredientsValueList.add(24);
-        ingredientsValueList.add(25);
-        ingredientsValueList.add(30);
+        ingredientsValueList.add(5);
+        ingredientsValueList.add(14);
+        ingredientsValueList.add(3);
 
         GridView gridView = findViewById(R.id.grid_view);
         GridViewAdapter gridViewAdapter = new GridViewAdapter(this, ingredientsImageIDList, ingredientsValueList);

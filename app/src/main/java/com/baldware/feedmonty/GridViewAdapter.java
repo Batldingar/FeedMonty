@@ -60,6 +60,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     public void removeItemAt(int i) {
         imageIDList.remove(i);
+        imageValueList.remove(i);
         notifyDataSetChanged();
     }
 }

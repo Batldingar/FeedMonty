@@ -98,6 +98,10 @@ public class MixingActivity extends AppCompatActivity {
                                                         Intent intent = new Intent(MixingActivity.this, ScoreActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         intent.putExtra("score", chosenValue + (new Random().nextInt(10) - 8)); // random from -8 to 1 so that the score can change but can't go over 80
                                                         startActivity(intent);
+
+                                                        // Finish this activity so that when the next one opens the back button
+                                                        // will bring the user back to the main activity
+                                                        finish();
                                                     }
 
                                                     @Override

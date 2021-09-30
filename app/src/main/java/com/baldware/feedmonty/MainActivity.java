@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Content Animation
-        countDownTimer = new CountDownTimer(5000, 3000) {
+        countDownTimer = new CountDownTimer(5000, 5000) {
             int previousAnimationID;
 
             public void onTick(long millisUntilFinished) {
