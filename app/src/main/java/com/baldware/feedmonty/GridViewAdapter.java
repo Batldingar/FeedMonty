@@ -44,11 +44,11 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(layoutInflater == null) {
+        if (layoutInflater == null) {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        if(view == null) {
+        if (view == null) {
             view = layoutInflater.inflate(R.layout.grid_item, null);
         }
 

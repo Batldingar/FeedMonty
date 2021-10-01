@@ -4,4 +4,5 @@
     <string name="start_text_emphasized">That\'s Monty, not the button!</string>
     <string name="ingredients_activity_title">Select three ingredients!</string>
     <string name="mixing_activity_title">Press the flask to stop mixing!</string>
+    <string name="score_text">Your Score:\n%1$d</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.baldware.feedmonty;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.animation.Animation;
@@ -42,7 +43,7 @@ public class ScoreActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if(score <= 10) {
+                if (score <= 10) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_1);
                 } else if (score <= 20) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_2);
@@ -68,7 +69,17 @@ public class ScoreActivity extends AppCompatActivity {
                     @Override
                     public void onFinish() {
                         TextView textView = findViewById(R.id.score_text);
-                        textView.setText(String.valueOf(score));
+
+                        // Value Animation
+                        ValueAnimator animator = ValueAnimator.ofInt(0, score);
+                        animator.setDuration(2000);
+                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                String text = getResources().getString(R.string.score_text, (int) animation.getAnimatedValue());
+                                textView.setText(text);
+                            }
+                        });
+                        animator.start();
                     }
                 }.start();
             }

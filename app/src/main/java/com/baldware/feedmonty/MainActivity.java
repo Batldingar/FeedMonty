@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 Random random = new Random();
                 int animationID;
 
-                do{
+                do {
                     animationID = random.nextInt(5);
-                }while(animationID == previousAnimationID);
+                } while (animationID == previousAnimationID);
 
-                switch(animationID) {
+                switch (animationID) {
                     case 0:
                         gifImageView.setImageResource(R.drawable.monty_idle_1);
                         break;
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(gifImageView.getVisibility() == View.INVISIBLE) {
+        if (gifImageView.getVisibility() == View.INVISIBLE) {
             gifImageView.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);

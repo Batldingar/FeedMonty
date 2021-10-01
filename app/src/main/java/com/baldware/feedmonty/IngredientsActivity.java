@@ -29,28 +29,28 @@ public class IngredientsActivity extends AppCompatActivity {
         // Ingredients Grid View Populating
         ArrayList<Integer> ingredientsImageIDList = new ArrayList<>();
         ingredientsImageIDList.add(R.drawable.food_apple);
-        ingredientsImageIDList.add(R.drawable.food_avocado);
-        ingredientsImageIDList.add(R.drawable.food_burger);
-        ingredientsImageIDList.add(R.drawable.food_cake);
-        ingredientsImageIDList.add(R.drawable.food_candy);
-        ingredientsImageIDList.add(R.drawable.food_cherry);
-        ingredientsImageIDList.add(R.drawable.food_cupcake);
-        ingredientsImageIDList.add(R.drawable.food_fish);
+        ingredientsImageIDList.add(R.drawable.food_shoe);
         ingredientsImageIDList.add(R.drawable.food_flask);
-        ingredientsImageIDList.add(R.drawable.food_icecream);
-        ingredientsImageIDList.add(R.drawable.food_monty);
+        ingredientsImageIDList.add(R.drawable.food_cake);
+        ingredientsImageIDList.add(R.drawable.food_shrimp);
         ingredientsImageIDList.add(R.drawable.food_pizza);
         ingredientsImageIDList.add(R.drawable.food_potion);
-        ingredientsImageIDList.add(R.drawable.food_rose);
-        ingredientsImageIDList.add(R.drawable.food_shoe);
-        ingredientsImageIDList.add(R.drawable.food_shrimp);
+        ingredientsImageIDList.add(R.drawable.food_icecream);
         ingredientsImageIDList.add(R.drawable.food_stone);
-        ingredientsImageIDList.add(R.drawable.food_sushi);
+        ingredientsImageIDList.add(R.drawable.food_cherry);
+        ingredientsImageIDList.add(R.drawable.food_rose);
+        ingredientsImageIDList.add(R.drawable.food_candy);
+        ingredientsImageIDList.add(R.drawable.food_fish);
+        ingredientsImageIDList.add(R.drawable.food_monty);
         ingredientsImageIDList.add(R.drawable.food_tea);
+        ingredientsImageIDList.add(R.drawable.food_avocado);
+        ingredientsImageIDList.add(R.drawable.food_burger);
+        ingredientsImageIDList.add(R.drawable.food_sushi);
+        ingredientsImageIDList.add(R.drawable.food_cupcake);
 
         ArrayList<Integer> ingredientsValueList = new ArrayList<>();
-        ingredientsValueList.add(24);
         ingredientsValueList.add(-1);
+        ingredientsValueList.add(24);
         ingredientsValueList.add(20);
         ingredientsValueList.add(0);
         ingredientsValueList.add(15);
@@ -89,20 +89,20 @@ public class IngredientsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Animation forwardsAppear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.forwards_appear);
 
-                if(imageViewOne.getVisibility() == View.INVISIBLE) {
-                    chosenImageIDArray[0] = (Integer)gridViewAdapter.getItem(i);
+                if (imageViewOne.getVisibility() == View.INVISIBLE) {
+                    chosenImageIDArray[0] = (Integer) gridViewAdapter.getItem(i);
                     chosenValueArray[0] = gridViewAdapter.getItemValue(i);
                     imageViewOne.setImageResource(chosenImageIDArray[0]);
                     imageViewOne.startAnimation(forwardsAppear);
                     imageViewOne.setVisibility(View.VISIBLE);
-                } else if(imageViewTwo.getVisibility() == View.INVISIBLE) {
-                    chosenImageIDArray[1] = (Integer)gridViewAdapter.getItem(i);
+                } else if (imageViewTwo.getVisibility() == View.INVISIBLE) {
+                    chosenImageIDArray[1] = (Integer) gridViewAdapter.getItem(i);
                     chosenValueArray[1] = gridViewAdapter.getItemValue(i);
                     imageViewTwo.setImageResource(chosenImageIDArray[1]);
                     imageViewTwo.startAnimation(forwardsAppear);
                     imageViewTwo.setVisibility(View.VISIBLE);
-                } else if(imageViewThree.getVisibility() == View.INVISIBLE) {
-                    chosenImageIDArray[2] = (Integer)gridViewAdapter.getItem(i);
+                } else if (imageViewThree.getVisibility() == View.INVISIBLE) {
+                    chosenImageIDArray[2] = (Integer) gridViewAdapter.getItem(i);
                     chosenValueArray[2] = gridViewAdapter.getItemValue(i);
                     imageViewThree.setImageResource(chosenImageIDArray[2]);
                     imageViewThree.startAnimation(forwardsAppear);
