@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ScrollView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Random;
 
@@ -105,6 +107,28 @@ public class ScoreActivity extends AppCompatActivity {
 
                                 // UI Animation
                                 Animation forwardsAppear = AnimationUtils.loadAnimation(ScoreActivity.this, R.anim.forwards_appear);
+                                forwardsAppear.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        ConstraintLayout wholeView = findViewById(R.id.score_constraint_layout);
+                                        wholeView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                finish();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
                                 highscoreTextView.startAnimation(forwardsAppear);
                             }
                         });
