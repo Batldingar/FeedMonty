@@ -1,10 +1,13 @@
 package com.baldware.feedmonty;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,6 +19,11 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class ScoreActivity extends AppCompatActivity {
 
+    private final static String HISTORY_FILE_NAME = "history_file";
+    private final static String HIGHSCORE_KEY = "highscore";
+
+    private int highscore;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +34,14 @@ public class ScoreActivity extends AppCompatActivity {
 
         // Intent Extras
         int score = getIntent().getIntExtra("score", 0);
+
+        // History Saving
+        HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_NAME);
+        highscore = historyHandler.getEntryInt(HIGHSCORE_KEY, HistoryHandler.Category.HIGHSCORE, 0);
+        if(score > highscore) {
+            historyHandler.writeHistory(HIGHSCORE_KEY, String.valueOf(score), HistoryHandler.Category.HIGHSCORE);
+            highscore = score;
+        }
 
         // UI Animation
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
@@ -68,7 +84,7 @@ public class ScoreActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        TextView textView = findViewById(R.id.score_text);
+                        TextView scoreTextView = findViewById(R.id.score_text);
 
                         // Value Animation
                         ValueAnimator animator = ValueAnimator.ofInt(0, score);
@@ -76,7 +92,20 @@ public class ScoreActivity extends AppCompatActivity {
                         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             public void onAnimationUpdate(ValueAnimator animation) {
                                 String text = getResources().getString(R.string.score_text, (int) animation.getAnimatedValue());
-                                textView.setText(text);
+                                scoreTextView.setText(text);
+                            }
+                        });
+                        animator.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                TextView highscoreTextView = findViewById(R.id.highscore_text);
+                                String text = getResources().getString(R.string.highscore_text, highscore);
+                                highscoreTextView.setText(text);
+
+                                // UI Animation
+                                Animation forwardsAppear = AnimationUtils.loadAnimation(ScoreActivity.this, R.anim.forwards_appear);
+                                highscoreTextView.startAnimation(forwardsAppear);
                             }
                         });
                         animator.start();

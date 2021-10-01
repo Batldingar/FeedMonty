@@ -34,6 +34,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <TextView
+            android:id="@+id/highscore_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/grandstander_semi_bold_italic"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:minLines="2"
+            app:layout_constraintTop_toBottomOf="@id/result_gif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

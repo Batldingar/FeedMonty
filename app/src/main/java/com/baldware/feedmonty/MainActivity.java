@@ -38,21 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Baldware Games");
 
         // UI Animation
-        Animation forwardsAppear = AnimationUtils.loadAnimation(this, R.anim.forwards_appear);
-        infoButton = findViewById(R.id.info_button);
-        infoButton.startAnimation(forwardsAppear);
-
-        Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
-        gifImageView = findViewById(R.id.start_gif);
-        gifImageView.startAnimation(rightwardsAppear);
-
-        Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
-        button = findViewById(R.id.start_button);
-        button.startAnimation(leftwardsAppear);
-
-        Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
-        textView = findViewById(R.id.start_text);
-        textView.startAnimation(downwardsAppear);
+        startStartUpAnimation();
 
         // Monty On Press
         gifImageView.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +140,26 @@ public class MainActivity extends AppCompatActivity {
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
             infoButton.setVisibility(View.VISIBLE);
+
+            startStartUpAnimation();
         }
+    }
+
+    private void startStartUpAnimation() {
+        Animation forwardsAppear = AnimationUtils.loadAnimation(this, R.anim.forwards_appear);
+        infoButton = findViewById(R.id.info_button);
+        infoButton.startAnimation(forwardsAppear);
+
+        Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
+        gifImageView = findViewById(R.id.start_gif);
+        gifImageView.startAnimation(rightwardsAppear);
+
+        Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
+        button = findViewById(R.id.start_button);
+        button.startAnimation(leftwardsAppear);
+
+        Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
+        textView = findViewById(R.id.start_text);
+        textView.startAnimation(downwardsAppear);
     }
 }
