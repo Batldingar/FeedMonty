@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     // Tools
     private CountDownTimer countDownTimer;
 
+    // Tags & Keys
+    public final static String HISTORY_FILE_TAG = "history_file";
+    public final static String PRIVACY_POLICY_KEY = "privacy_policy";
+    private static final String PRIVACY_POLICY_FRAGMENT_TAG = "privacy_policy_fragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Activity Properties
         setTitle("Baldware Games");
+
+        // On First Start Up
+        HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_TAG);
+        boolean privacyPolicyRead = historyHandler.getEntryBoolean(PRIVACY_POLICY_KEY, HistoryHandler.Category.SETTINGS, false);
+        if(!privacyPolicyRead) {
+            PrivacyDialogFragment privacyDialogFragment = PrivacyDialogFragment.newInstance(getString(R.string.privacy_policy_title));
+            privacyDialogFragment.show(MainActivity.this.getSupportFragmentManager(), PRIVACY_POLICY_FRAGMENT_TAG);
+        }
 
         // UI Animation
         startStartUpAnimation();
@@ -87,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Add AGBs
+                PrivacyDialogFragment privacyDialogFragment = PrivacyDialogFragment.newInstance(getString(R.string.privacy_policy_title));
+                privacyDialogFragment.show(MainActivity.this.getSupportFragmentManager(), PRIVACY_POLICY_FRAGMENT_TAG);
             }
         });
 

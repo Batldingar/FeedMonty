@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class HistoryHandler {
 
     public enum Category {
-        HIGHSCORE
+        GAME_STATE,
+        SETTINGS
     }
 
     private final File file;
@@ -35,8 +36,10 @@ public class HistoryHandler {
         BufferedWriter bufferedWriter;
 
         // Generate the message
-        if(category == Category.HIGHSCORE) {
-            message = "HS," + key + "," + value;
+        if(category == Category.GAME_STATE) {
+            message = "GS," + key + "," + value;
+        } else if(category == Category.SETTINGS) {
+            message = "SG," + key + "," + value;
         }
 
         // Initialize the fileWriter
@@ -79,8 +82,13 @@ public class HistoryHandler {
                     String line = bufferedReader.readLine();
                     while (line != null) {
                         switch(category) {
-                            case HIGHSCORE:
-                                if(line.startsWith("HS")) {
+                            case GAME_STATE:
+                                if(line.startsWith("GS")) {
+                                    resultStrings.add(line);
+                                }
+                                break;
+                            case SETTINGS:
+                                if(line.startsWith("SG")) {
                                     resultStrings.add(line);
                                 }
                                 break;
@@ -140,6 +148,14 @@ public class HistoryHandler {
         return value;
     }
 
+    public boolean getEntryBoolean(String key, Category category, boolean defaultValue) {
+        boolean value = defaultValue;
+        if(getEntry(key, category) != null) {
+            value = Boolean.parseBoolean(getEntry(key, category));
+        }
+        return value;
+    }
+
     public boolean deleteHistory() {
         if(file.exists()) {
             return file.delete();
@@ -172,8 +188,13 @@ public class HistoryHandler {
                         String[] splitLine = line.split(",");
 
                         switch (category) {
-                            case HIGHSCORE:
-                                if(!splitLine[0].equals("HS") || !splitLine[1].equals(key)) {
+                            case GAME_STATE:
+                                if(!splitLine[0].equals("GS") || !splitLine[1].equals(key)) {
+                                    remainingStrings.add(line);
+                                }
+                                break;
+                            case SETTINGS:
+                                if(!splitLine[0].equals("SG") || !splitLine[1].equals(key)) {
                                     remainingStrings.add(line);
                                 }
                                 break;
@@ -193,8 +214,11 @@ public class HistoryHandler {
             for (String line : remainingStrings) {
                 String[] splitLine = line.split(",");
                 switch (splitLine[0]) {
-                    case "HS":
-                        writeHistory(splitLine[1], splitLine[2], Category.HIGHSCORE);
+                    case "GS":
+                        writeHistory(splitLine[1], splitLine[2], Category.GAME_STATE);
+                        break;
+                    case "SG":
+                        writeHistory(splitLine[1], splitLine[2], Category.SETTINGS);
                         break;
                 }
             }
@@ -225,8 +249,13 @@ public class HistoryHandler {
                     String line = bufferedReader.readLine();
                     while (line != null) {
                         switch (category) {
-                            case HIGHSCORE:
-                                if (!line.startsWith("HS")) {
+                            case GAME_STATE:
+                                if (!line.startsWith("GS")) {
+                                    remainingStrings.add(line);
+                                }
+                                break;
+                            case SETTINGS:
+                                if (!line.startsWith("SG")) {
                                     remainingStrings.add(line);
                                 }
                                 break;
@@ -247,8 +276,11 @@ public class HistoryHandler {
             for (String line : remainingStrings) {
                 String[] splitLine = line.split(",");
                 switch (splitLine[0]) {
-                    case "HS":
-                        writeHistory(splitLine[1], splitLine[2], Category.HIGHSCORE);
+                    case "GS":
+                        writeHistory(splitLine[1], splitLine[2], Category.GAME_STATE);
+                        break;
+                    case "SG":
+                        writeHistory(splitLine[1], splitLine[2], Category.SETTINGS);
                         break;
                 }
             }

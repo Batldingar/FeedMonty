@@ -8,20 +8,17 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.Random;
-
 import pl.droidsonroids.gif.GifImageView;
 
 public class ScoreActivity extends AppCompatActivity {
 
-    private final static String HISTORY_FILE_NAME = "history_file";
+    // Tags & Keys
     private final static String HIGHSCORE_KEY = "highscore";
 
     private int highscore;
@@ -38,10 +35,10 @@ public class ScoreActivity extends AppCompatActivity {
         int score = getIntent().getIntExtra("score", 0);
 
         // History Saving
-        HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_NAME);
-        highscore = historyHandler.getEntryInt(HIGHSCORE_KEY, HistoryHandler.Category.HIGHSCORE, 0);
+        HistoryHandler historyHandler = new HistoryHandler(this, MainActivity.HISTORY_FILE_TAG);
+        highscore = historyHandler.getEntryInt(HIGHSCORE_KEY, HistoryHandler.Category.GAME_STATE, 0);
         if(score > highscore) {
-            historyHandler.writeHistory(HIGHSCORE_KEY, String.valueOf(score), HistoryHandler.Category.HIGHSCORE);
+            historyHandler.writeHistory(HIGHSCORE_KEY, String.valueOf(score), HistoryHandler.Category.GAME_STATE);
             highscore = score;
         }
 
@@ -74,6 +71,9 @@ public class ScoreActivity extends AppCompatActivity {
                 } else if (score <= 60) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_6);
                 } else if (score <= 70) {
+                    gifImageView.setBackgroundResource(R.drawable.monty_result_7);
+                } else if (score <= 80) {
+                    // Future update should replace this one with a new animation
                     gifImageView.setBackgroundResource(R.drawable.monty_result_7);
                 }
 
