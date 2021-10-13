@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import pl.droidsonroids.gif.GifImageView;
 
+@SuppressWarnings("Convert2Lambda")
 public class ScoreActivity extends AppCompatActivity {
 
     // Tags & Keys

@@ -1,5 +1,6 @@
 package com.baldware.feedmonty;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private Context context;
-    private ArrayList<Integer> imageIDList;
-    private ArrayList<Integer> imageValueList;
+    private final Context context;
+    private final ArrayList<Integer> imageIDList;
+    private final ArrayList<Integer> imageValueList;
 
     private LayoutInflater layoutInflater;
 
@@ -42,6 +43,7 @@ public class GridViewAdapter extends BaseAdapter {
         return imageValueList.get(i);
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (layoutInflater == null) {
@@ -49,7 +51,7 @@ public class GridViewAdapter extends BaseAdapter {
         }
 
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.grid_item, null);
+            view = layoutInflater.inflate(R.layout.grid_item, null, false);
         }
 
         ImageView imageView = view.findViewById(R.id.grid_item_image_view);

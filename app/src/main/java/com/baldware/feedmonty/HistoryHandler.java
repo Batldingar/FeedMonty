@@ -156,6 +156,7 @@ public class HistoryHandler {
         return value;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean deleteHistory() {
         if(file.exists()) {
             return file.delete();
@@ -224,7 +225,6 @@ public class HistoryHandler {
             }
         }
 
-        return;
     }
 
     public void deleteHistory(Category category) {
@@ -285,7 +285,5 @@ public class HistoryHandler {
                 }
             }
         }
-
-        return;
     }
 }
