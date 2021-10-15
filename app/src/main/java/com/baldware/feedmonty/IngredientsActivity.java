@@ -2,12 +2,14 @@ package com.baldware.feedmonty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -84,6 +86,14 @@ public class IngredientsActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Demo Version Item Limiter
+                if(Constants.flavor == Constants.Flavor.DEMO) {
+                    if(ingredientsImageIDList.indexOf((Integer) gridViewAdapter.getItem(i)) > 4) {
+                        Toast.makeText(IngredientsActivity.this, R.string.not_available, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
                 Animation forwardsAppear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.forwards_appear);
 
                 if (imageViewOne.getVisibility() == View.INVISIBLE) {

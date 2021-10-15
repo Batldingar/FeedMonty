@@ -20,8 +20,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     public GridViewAdapter(Context context, ArrayList<Integer> imageIDList, ArrayList<Integer> imageValueList) {
         this.context = context;
-        this.imageIDList = imageIDList;
-        this.imageValueList = imageValueList;
+        this.imageIDList = new ArrayList<>(imageIDList);
+        this.imageValueList = new ArrayList<>(imageValueList);
     }
 
     @Override
