@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class IngredientsActivity extends AppCompatActivity {
 
+    private static final String ADVERTISEMENT_FRAGMENT_TAG = "advertisement_fragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +90,9 @@ public class IngredientsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // Demo Version Item Limiter
                 if(Constants.flavor == Constants.Flavor.DEMO) {
-                    if(ingredientsImageIDList.indexOf((Integer) gridViewAdapter.getItem(i)) > 4) {
-                        Toast.makeText(IngredientsActivity.this, R.string.not_available, Toast.LENGTH_LONG).show();
+                    if(ingredientsImageIDList.indexOf((Integer) gridViewAdapter.getItem(i)) >= 5) {
+                        AdvertisementDialogFragment advertisementDialogFragment = AdvertisementDialogFragment.newInstance(getString(R.string.ad_title));
+                        advertisementDialogFragment.show(IngredientsActivity.this.getSupportFragmentManager(), ADVERTISEMENT_FRAGMENT_TAG);
                         return;
                     }
                 }

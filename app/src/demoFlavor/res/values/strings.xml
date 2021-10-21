@@ -1,4 +1,3 @@
 <resources>
     <string name="app_name">Feed Monty Demo</string>
-    <string name="not_available">This demo only features the first 5 items.\nGet the full version for more fun with Monty!</string>
 </resources>
