@@ -66,7 +66,7 @@ public class HistoryHandler {
         BufferedReader bufferedReader;
         ArrayList<String> resultStrings = new ArrayList<>();
 
-        if(file.exists()) {
+        if(file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);
@@ -158,7 +158,7 @@ public class HistoryHandler {
 
     @SuppressWarnings("UnusedReturnValue")
     public boolean deleteHistory() {
-        if(file.exists()) {
+        if(file.isFile()) {
             return file.delete();
         }
 
@@ -171,7 +171,7 @@ public class HistoryHandler {
         ArrayList<String> remainingStrings = new ArrayList<>();
 
         // Store the remaining lines
-        if(file.exists()) {
+        if(file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);
@@ -233,7 +233,7 @@ public class HistoryHandler {
         ArrayList<String> remainingStrings = new ArrayList<>();
 
         // Store the remaining lines
-        if(file.exists()) {
+        if(file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);
