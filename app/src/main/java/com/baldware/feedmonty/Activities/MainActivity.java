@@ -40,12 +40,13 @@ public class MainActivity extends FullScreenActivity {
         hideSystemBars();
         setContentView(R.layout.activity_main);
 
-        // TODO: Remove titles in all activities
+        // TODO: Remove titles in all activities and replace them with alert dialogues that show up only ones
+        // TODO: Update the privace policy
 
         // Showing the privacy dialog fragment on first start up
         HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_TAG);
         boolean privacyPolicyRead = historyHandler.getEntryBoolean(PRIVACY_POLICY_KEY, HistoryHandler.Category.SETTINGS, false);
-        if(!privacyPolicyRead) {
+        if (!privacyPolicyRead) {
             PrivacyDialogFragment privacyDialogFragment = PrivacyDialogFragment.newInstance(getString(R.string.privacy_policy_title));
             privacyDialogFragment.show(MainActivity.this.getSupportFragmentManager(), PRIVACY_POLICY_FRAGMENT_TAG);
         }
@@ -96,7 +97,7 @@ public class MainActivity extends FullScreenActivity {
             }
         });
 
-        // Info Button On Press
+        // On click method for the info button
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +106,7 @@ public class MainActivity extends FullScreenActivity {
             }
         });
 
-        // Content Animation
+        // Performing Monty's idle animations
         countDownTimer = new CountDownTimer(5000, 5000) {
             int previousAnimationID;
 

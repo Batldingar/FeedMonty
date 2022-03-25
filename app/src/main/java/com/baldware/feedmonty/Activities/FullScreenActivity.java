@@ -14,7 +14,7 @@ public class FullScreenActivity extends AppCompatActivity {
      * Hides both system bars allowing for a true fullscreen experience
      * Attention: Immersive mode should also be enabled in themes.xml
      */
-    protected void hideSystemBars() {
+    public void hideSystemBars() {
         WindowInsetsControllerCompat windowInsetsController =
                 ViewCompat.getWindowInsetsController(getWindow().getDecorView());
         if (windowInsetsController == null) {

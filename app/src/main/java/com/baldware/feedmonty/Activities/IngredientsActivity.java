@@ -9,16 +9,18 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.baldware.feedmonty.Constants;
-import com.baldware.feedmonty.Fragments.AdvertisementDialogFragment;
+import com.baldware.feedmonty.Fragments.HintDialogFragment;
 import com.baldware.feedmonty.Utils.GridViewAdapter;
 import com.baldware.feedmonty.R;
+import com.baldware.feedmonty.Utils.HistoryHandler;
 
 import java.util.ArrayList;
 
 public class IngredientsActivity extends FullScreenActivity {
 
-    private static final String ADVERTISEMENT_FRAGMENT_TAG = "advertisement_fragment";
+    // Tags & Keys
+    public final static String INGREDIENTS_HINT_KEY = "ingredients_hint";
+    private static final String INGREDIENTS_HINT_FRAGMENT_TAG = "ingredients_hint_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,18 @@ public class IngredientsActivity extends FullScreenActivity {
         hideSystemBars();
         setContentView(R.layout.activity_ingredients);
 
+        // Showing the ingredients hint dialog fragment on first start up
+        HistoryHandler historyHandler = new HistoryHandler(this, MainActivity.HISTORY_FILE_TAG);
+        boolean ingredientsHintRead = historyHandler.getEntryBoolean(INGREDIENTS_HINT_KEY, HistoryHandler.Category.SETTINGS, false);
+        if (!ingredientsHintRead) {
+            HintDialogFragment hintDialogFragment = HintDialogFragment.newInstance(INGREDIENTS_HINT_KEY, getString(R.string.ingredients_hint_text));
+            hintDialogFragment.show(IngredientsActivity.this.getSupportFragmentManager(), INGREDIENTS_HINT_FRAGMENT_TAG);
+        }
+
         // Activity Properties
         setTitle(R.string.ingredients_activity_title);
 
-        // Ingredients Grid View Populating
+        // Creating the ingredients resource list (image id list)
         ArrayList<Integer> ingredientsImageIDList = new ArrayList<>();
         ingredientsImageIDList.add(R.drawable.food_apple);
         ingredientsImageIDList.add(R.drawable.food_shoe);
@@ -51,6 +61,7 @@ public class IngredientsActivity extends FullScreenActivity {
         ingredientsImageIDList.add(R.drawable.food_sushi);
         ingredientsImageIDList.add(R.drawable.food_cupcake);
 
+        // Creating the ingredients value list
         ArrayList<Integer> ingredientsValueList = new ArrayList<>();
         ingredientsValueList.add(-1);
         ingredientsValueList.add(24);
@@ -80,25 +91,17 @@ public class IngredientsActivity extends FullScreenActivity {
         ImageView imageViewTwo = findViewById(R.id.image_view_two);
         ImageView imageViewThree = findViewById(R.id.image_view_three);
 
-        ImageView imageViewOneEmpty = findViewById(R.id.image_view_one_empty);
-        ImageView imageViewTwoEmpty = findViewById(R.id.image_view_two_empty);
-        ImageView imageViewThreeEmpty = findViewById(R.id.image_view_three_empty);
+        ImageView imageViewOneBorder = findViewById(R.id.image_view_one_empty);
+        ImageView imageViewTwoBorder = findViewById(R.id.image_view_two_empty);
+        ImageView imageViewThreeBorder = findViewById(R.id.image_view_three_empty);
 
         int[] chosenImageIDArray = new int[3];
         int[] chosenValueArray = new int[3];
 
+        // Animating the item selection
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Demo Version Item Limiter
-                if(Constants.flavor == Constants.Flavor.DEMO) {
-                    if(ingredientsImageIDList.indexOf((Integer) gridViewAdapter.getItem(i)) >= 5) {
-                        AdvertisementDialogFragment advertisementDialogFragment = AdvertisementDialogFragment.newInstance(getString(R.string.ad_title));
-                        advertisementDialogFragment.show(IngredientsActivity.this.getSupportFragmentManager(), ADVERTISEMENT_FRAGMENT_TAG);
-                        return;
-                    }
-                }
-
                 Animation forwardsAppear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.forwards_appear);
 
                 if (imageViewOne.getVisibility() == View.INVISIBLE) {
@@ -131,11 +134,11 @@ public class IngredientsActivity extends FullScreenActivity {
                             Animation leftwardsDisappear = AnimationUtils.loadAnimation(IngredientsActivity.this, R.anim.leftwards_disappear);
                             gridView.startAnimation(leftwardsDisappear);
                             imageViewOne.startAnimation(leftwardsDisappear);
-                            imageViewOneEmpty.startAnimation(leftwardsDisappear);
+                            imageViewOneBorder.startAnimation(leftwardsDisappear);
                             imageViewTwo.startAnimation(leftwardsDisappear);
-                            imageViewTwoEmpty.startAnimation(leftwardsDisappear);
+                            imageViewTwoBorder.startAnimation(leftwardsDisappear);
                             imageViewThree.startAnimation(leftwardsDisappear);
-                            imageViewThreeEmpty.startAnimation(leftwardsDisappear);
+                            imageViewThreeBorder.startAnimation(leftwardsDisappear);
                             leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
@@ -146,11 +149,11 @@ public class IngredientsActivity extends FullScreenActivity {
                                 public void onAnimationEnd(Animation animation) {
                                     gridView.setVisibility(View.INVISIBLE);
                                     imageViewOne.setVisibility(View.INVISIBLE);
-                                    imageViewOneEmpty.setVisibility(View.INVISIBLE);
+                                    imageViewOneBorder.setVisibility(View.INVISIBLE);
                                     imageViewTwo.setVisibility(View.INVISIBLE);
-                                    imageViewTwoEmpty.setVisibility(View.INVISIBLE);
+                                    imageViewTwoBorder.setVisibility(View.INVISIBLE);
                                     imageViewThree.setVisibility(View.INVISIBLE);
-                                    imageViewThreeEmpty.setVisibility(View.INVISIBLE);
+                                    imageViewThreeBorder.setVisibility(View.INVISIBLE);
 
                                     // Parse the three ingredients by using intent extras
                                     Intent intent = new Intent(IngredientsActivity.this, MixingActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -181,19 +184,18 @@ public class IngredientsActivity extends FullScreenActivity {
             }
         });
 
-        // UI Animation
+        // Showing the UI animations on start up
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
-        gridView.startAnimation(leftwardsAppear);
-
         Animation upwardsAppearOne = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
         Animation upwardsAppearTwo = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
         Animation upwardsAppearThree = AnimationUtils.loadAnimation(this, R.anim.upwards_appear);
 
+        gridView.startAnimation(leftwardsAppear);
         upwardsAppearOne.setStartOffset(500);
-        imageViewOneEmpty.startAnimation(upwardsAppearOne);
+        imageViewOneBorder.startAnimation(upwardsAppearOne);
         upwardsAppearTwo.setStartOffset(750);
-        imageViewTwoEmpty.startAnimation(upwardsAppearTwo);
+        imageViewTwoBorder.startAnimation(upwardsAppearTwo);
         upwardsAppearThree.setStartOffset(1000);
-        imageViewThreeEmpty.startAnimation(upwardsAppearThree);
+        imageViewThreeBorder.startAnimation(upwardsAppearThree);
     }
 }

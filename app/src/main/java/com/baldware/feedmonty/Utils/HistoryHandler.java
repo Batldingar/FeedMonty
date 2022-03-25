@@ -26,7 +26,7 @@ public class HistoryHandler {
 
     public void writeHistory(String key, String value, Category category) {
         // Delete the entry if it already exists
-        if(getEntry(key, category) != null) {
+        if (getEntry(key, category) != null) {
             deleteHistory(key, category);
         }
 
@@ -36,9 +36,9 @@ public class HistoryHandler {
         BufferedWriter bufferedWriter;
 
         // Generate the message
-        if(category == Category.GAME_STATE) {
+        if (category == Category.GAME_STATE) {
             message = "GS," + key + "," + value;
-        } else if(category == Category.SETTINGS) {
+        } else if (category == Category.SETTINGS) {
             message = "SG," + key + "," + value;
         }
 
@@ -66,7 +66,7 @@ public class HistoryHandler {
         BufferedReader bufferedReader;
         ArrayList<String> resultStrings = new ArrayList<>();
 
-        if(file.isFile()) {
+        if (file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);
@@ -81,14 +81,14 @@ public class HistoryHandler {
                 try {
                     String line = bufferedReader.readLine();
                     while (line != null) {
-                        switch(category) {
+                        switch (category) {
                             case GAME_STATE:
-                                if(line.startsWith("GS")) {
+                                if (line.startsWith("GS")) {
                                     resultStrings.add(line);
                                 }
                                 break;
                             case SETTINGS:
-                                if(line.startsWith("SG")) {
+                                if (line.startsWith("SG")) {
                                     resultStrings.add(line);
                                 }
                                 break;
@@ -111,10 +111,10 @@ public class HistoryHandler {
         ArrayList<String> entryList = readHistory(category);
         String value = null;
 
-        if(!entryList.isEmpty()) {
-            for(String entry : entryList) {
+        if (!entryList.isEmpty()) {
+            for (String entry : entryList) {
                 String[] splitEntry = entry.split(",");
-                if(splitEntry[1].equals(key)) {
+                if (splitEntry[1].equals(key)) {
                     value = splitEntry[2];
                     break;
                 }
@@ -126,7 +126,7 @@ public class HistoryHandler {
 
     public int getEntryInt(String key, Category category, int defaultValue) {
         int value = defaultValue;
-        if(getEntry(key, category) != null) {
+        if (getEntry(key, category) != null) {
             value = Integer.parseInt(getEntry(key, category));
         }
         return value;
@@ -134,7 +134,7 @@ public class HistoryHandler {
 
     public float getEntryFloat(String key, Category category, float defaultValue) {
         float value = defaultValue;
-        if(getEntry(key, category) != null) {
+        if (getEntry(key, category) != null) {
             value = Float.parseFloat(getEntry(key, category));
         }
         return value;
@@ -142,7 +142,7 @@ public class HistoryHandler {
 
     public String getEntryString(String key, Category category, String defaultValue) {
         String value = defaultValue;
-        if(getEntry(key, category) != null) {
+        if (getEntry(key, category) != null) {
             value = getEntry(key, category);
         }
         return value;
@@ -150,7 +150,7 @@ public class HistoryHandler {
 
     public boolean getEntryBoolean(String key, Category category, boolean defaultValue) {
         boolean value = defaultValue;
-        if(getEntry(key, category) != null) {
+        if (getEntry(key, category) != null) {
             value = Boolean.parseBoolean(getEntry(key, category));
         }
         return value;
@@ -158,7 +158,7 @@ public class HistoryHandler {
 
     @SuppressWarnings("UnusedReturnValue")
     public boolean deleteHistory() {
-        if(file.isFile()) {
+        if (file.isFile()) {
             return file.delete();
         }
 
@@ -171,7 +171,7 @@ public class HistoryHandler {
         ArrayList<String> remainingStrings = new ArrayList<>();
 
         // Store the remaining lines
-        if(file.isFile()) {
+        if (file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);
@@ -190,12 +190,12 @@ public class HistoryHandler {
 
                         switch (category) {
                             case GAME_STATE:
-                                if(!splitLine[0].equals("GS") || !splitLine[1].equals(key)) {
+                                if (!splitLine[0].equals("GS") || !splitLine[1].equals(key)) {
                                     remainingStrings.add(line);
                                 }
                                 break;
                             case SETTINGS:
-                                if(!splitLine[0].equals("SG") || !splitLine[1].equals(key)) {
+                                if (!splitLine[0].equals("SG") || !splitLine[1].equals(key)) {
                                     remainingStrings.add(line);
                                 }
                                 break;
@@ -233,7 +233,7 @@ public class HistoryHandler {
         ArrayList<String> remainingStrings = new ArrayList<>();
 
         // Store the remaining lines
-        if(file.isFile()) {
+        if (file.isFile()) {
             // Initialize the fileReader
             try {
                 fileReader = new FileReader(file);

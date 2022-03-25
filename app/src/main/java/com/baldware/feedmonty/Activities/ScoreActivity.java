@@ -32,21 +32,18 @@ public class ScoreActivity extends FullScreenActivity {
         hideSystemBars();
         setContentView(R.layout.activity_score);
 
-        // Activity Properties
-        setTitle("");
-
         // Intent Extras
         int score = getIntent().getIntExtra("score", 0);
 
-        // History Saving
+        // Saving the highscore
         HistoryHandler historyHandler = new HistoryHandler(this, MainActivity.HISTORY_FILE_TAG);
         highscore = historyHandler.getEntryInt(HIGHSCORE_KEY, HistoryHandler.Category.GAME_STATE, 0);
-        if(score > highscore) {
+        if (score > highscore) {
             historyHandler.writeHistory(HIGHSCORE_KEY, String.valueOf(score), HistoryHandler.Category.GAME_STATE);
             highscore = score;
         }
 
-        // UI Animation
+        // Showing the UI animations on start up
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
         GifImageView gifImageView = findViewById(R.id.result_gif);
         gifImageView.startAnimation(leftwardsAppear);
@@ -80,7 +77,6 @@ public class ScoreActivity extends FullScreenActivity {
                     // Future update should replace this one with a new animation
                     gifImageView.setBackgroundResource(R.drawable.monty_result_7);
                 }
-
 
                 CountDownTimer countDownTimerTwo = new CountDownTimer(2000, 2000) {
                     @Override
@@ -141,6 +137,5 @@ public class ScoreActivity extends FullScreenActivity {
                 }.start();
             }
         }.start();
-
     }
 }

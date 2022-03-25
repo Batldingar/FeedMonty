@@ -9,7 +9,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.baldware.feedmonty.Fragments.HintDialogFragment;
 import com.baldware.feedmonty.R;
+import com.baldware.feedmonty.Utils.HistoryHandler;
 
 import java.util.Random;
 
@@ -17,14 +19,15 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MixingActivity extends FullScreenActivity {
 
+    // Tags & Keys
+    public final static String MIXING_HINT_KEY = "mixing_hint";
+    private static final String MIXING_HINT_FRAGMENT_TAG = "mixing_hint_fragment";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemBars();
         setContentView(R.layout.activity_mixing);
-
-        // Activity Properties
-        setTitle("");
 
         // Intent Extras
         int[] imageIDArray = getIntent().getIntArrayExtra("chosen_ingredients");
@@ -81,7 +84,14 @@ public class MixingActivity extends FullScreenActivity {
                                     @Override
                                     public void onAnimationEnd(Animation animation) {
                                         imageViewThree.setVisibility(View.INVISIBLE);
-                                        setTitle(R.string.mixing_activity_title);
+
+                                        // Showing the mixing hint dialog fragment on first start up
+                                        HistoryHandler historyHandler = new HistoryHandler(MixingActivity.this, MainActivity.HISTORY_FILE_TAG);
+                                        boolean ingredientsHintRead = historyHandler.getEntryBoolean(MIXING_HINT_KEY, HistoryHandler.Category.SETTINGS, false);
+                                        if (!ingredientsHintRead) {
+                                            HintDialogFragment hintDialogFragment = HintDialogFragment.newInstance(MIXING_HINT_KEY, getString(R.string.mixing_hint_text));
+                                            hintDialogFragment.show(MixingActivity.this.getSupportFragmentManager(), MIXING_HINT_FRAGMENT_TAG);
+                                        }
 
                                         gifImageView.setOnClickListener(new View.OnClickListener() {
                                             @Override
