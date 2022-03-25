@@ -6,6 +6,6 @@ public class Constants {
         DEMO, FULL
     }
 
-    public static final Flavor flavor = Flavor.FULL;
+    public static final Flavor flavor = Flavor.DEMO;
 
 }

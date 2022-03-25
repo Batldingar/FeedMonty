@@ -1,8 +1,12 @@
 package com.baldware.feedmonty;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hideSystemBars();
 
         // Activity Properties
         setTitle("Baldware Games");
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         button.setVisibility(View.INVISIBLE);
                         textView.setVisibility(View.INVISIBLE);
                         infoButton.setVisibility(View.INVISIBLE);
+                        textView.setText(R.string.start_text);
 
                         startActivity(new Intent(MainActivity.this, IngredientsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     }
@@ -173,5 +179,19 @@ public class MainActivity extends AppCompatActivity {
         Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
         textView = findViewById(R.id.start_text);
         textView.startAnimation(downwardsAppear);
+    }
+
+    private void hideSystemBars() {
+        WindowInsetsControllerCompat windowInsetsController =
+                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController == null) {
+            return;
+        }
+        // Configure the behavior of the hidden system bars
+        windowInsetsController.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        );
+        // Hide both the status bar and the navigation bar
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
 }
