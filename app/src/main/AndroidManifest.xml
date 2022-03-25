@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeedMonty">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".IngredientsActivity"
+            android:name=".Activities.IngredientsActivity"
             android:exported="true">
             <intent-filter>
 
@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".MixingActivity"
+            android:name=".Activities.MixingActivity"
             android:exported="true">
             <intent-filter>
 
@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".ScoreActivity"
+            android:name=".Activities.ScoreActivity"
             android:exported="true">
             <intent-filter>
 
@@ -47,5 +47,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

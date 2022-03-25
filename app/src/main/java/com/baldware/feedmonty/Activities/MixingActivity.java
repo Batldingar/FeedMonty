@@ -1,4 +1,4 @@
-package com.baldware.feedmonty;
+package com.baldware.feedmonty.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +8,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.baldware.feedmonty.R;
 
 import java.util.Random;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class MixingActivity extends AppCompatActivity {
+public class MixingActivity extends FullScreenActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideSystemBars();
         setContentView(R.layout.activity_mixing);
 
         // Activity Properties

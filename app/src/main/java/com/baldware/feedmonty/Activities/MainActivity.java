@@ -1,12 +1,6 @@
-package com.baldware.feedmonty;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
+package com.baldware.feedmonty.Activities;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -16,17 +10,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baldware.feedmonty.Fragments.PrivacyDialogFragment;
+import com.baldware.feedmonty.Utils.HistoryHandler;
+import com.baldware.feedmonty.R;
+
 import java.util.Random;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FullScreenActivity {
 
     // UI Elements
-    private GifImageView gifImageView;
-    private Button button;
-    private TextView textView;
-    private ImageView infoButton;
+    private GifImageView montyImageView; // Animated monty image view
+    private Button startButton; // Green start button
+    private TextView textView; // Title/Prompt text
+    private ImageView infoButton; // Info button leading to privacy policy
 
     // Tools
     private CountDownTimer countDownTimer;
@@ -39,13 +37,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         hideSystemBars();
+        setContentView(R.layout.activity_main);
 
-        // Activity Properties
-        setTitle("Baldware Games");
+        // TODO: Remove titles in all activities
 
-        // On First Start Up
+        // Showing the privacy dialog fragment on first start up
         HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_TAG);
         boolean privacyPolicyRead = historyHandler.getEntryBoolean(PRIVACY_POLICY_KEY, HistoryHandler.Category.SETTINGS, false);
         if(!privacyPolicyRead) {
@@ -53,25 +50,26 @@ public class MainActivity extends AppCompatActivity {
             privacyDialogFragment.show(MainActivity.this.getSupportFragmentManager(), PRIVACY_POLICY_FRAGMENT_TAG);
         }
 
-        // UI Animation
-        startStartUpAnimation();
+        // Showing the UI animations on start up
+        startUIAnimations();
 
-        // Monty On Press
-        gifImageView.setOnClickListener(new View.OnClickListener() {
+        // On click method for Monty
+        montyImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 textView.setText(R.string.start_text_emphasized);
             }
         });
 
-        // Button On Press
-        button.setOnClickListener(new View.OnClickListener() {
+        // On click method for the start button
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Animation leftwardsDisappear = AnimationUtils.loadAnimation(MainActivity.this, R.anim.leftwards_disappear);
-                gifImageView.startAnimation(leftwardsDisappear);
-                button.startAnimation(leftwardsDisappear);
+                montyImageView.startAnimation(leftwardsDisappear);
+                startButton.startAnimation(leftwardsDisappear);
                 infoButton.startAnimation(leftwardsDisappear);
+                textView.startAnimation(leftwardsDisappear);
 
                 leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -81,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        gifImageView.setVisibility(View.INVISIBLE);
-                        button.setVisibility(View.INVISIBLE);
+                        montyImageView.setVisibility(View.INVISIBLE);
+                        startButton.setVisibility(View.INVISIBLE);
                         textView.setVisibility(View.INVISIBLE);
                         infoButton.setVisibility(View.INVISIBLE);
                         textView.setText(R.string.start_text);
@@ -95,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-                textView.startAnimation(leftwardsDisappear);
-
             }
         });
 
@@ -126,19 +122,19 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (animationID) {
                     case 0:
-                        gifImageView.setImageResource(R.drawable.monty_idle_1);
+                        montyImageView.setImageResource(R.drawable.monty_idle_1);
                         break;
                     case 1:
-                        gifImageView.setImageResource(R.drawable.monty_idle_2);
+                        montyImageView.setImageResource(R.drawable.monty_idle_2);
                         break;
                     case 2:
-                        gifImageView.setImageResource(R.drawable.monty_idle_3);
+                        montyImageView.setImageResource(R.drawable.monty_idle_3);
                         break;
                     case 3:
-                        gifImageView.setImageResource(R.drawable.monty_idle_4);
+                        montyImageView.setImageResource(R.drawable.monty_idle_4);
                         break;
                     case 4:
-                        gifImageView.setImageResource(R.drawable.monty_idle_5);
+                        montyImageView.setImageResource(R.drawable.monty_idle_5);
                         break;
                 }
 
@@ -153,45 +149,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (gifImageView.getVisibility() == View.INVISIBLE) {
-            gifImageView.setVisibility(View.VISIBLE);
-            button.setVisibility(View.VISIBLE);
+        if (montyImageView.getVisibility() == View.INVISIBLE) {
+            montyImageView.setVisibility(View.VISIBLE);
+            startButton.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
             infoButton.setVisibility(View.VISIBLE);
 
-            startStartUpAnimation();
+            startUIAnimations();
         }
     }
 
-    private void startStartUpAnimation() {
+    /**
+     * Executes the start up animations
+     */
+    private void startUIAnimations() {
         Animation forwardsAppear = AnimationUtils.loadAnimation(this, R.anim.forwards_appear);
         infoButton = findViewById(R.id.info_button);
         infoButton.startAnimation(forwardsAppear);
 
         Animation rightwardsAppear = AnimationUtils.loadAnimation(this, R.anim.rightwards_appear);
-        gifImageView = findViewById(R.id.start_gif);
-        gifImageView.startAnimation(rightwardsAppear);
+        montyImageView = findViewById(R.id.start_gif);
+        montyImageView.startAnimation(rightwardsAppear);
 
         Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
-        button = findViewById(R.id.start_button);
-        button.startAnimation(leftwardsAppear);
+        startButton = findViewById(R.id.start_button);
+        startButton.startAnimation(leftwardsAppear);
 
         Animation downwardsAppear = AnimationUtils.loadAnimation(this, R.anim.downwards_appear);
         textView = findViewById(R.id.start_text);
         textView.startAnimation(downwardsAppear);
-    }
-
-    private void hideSystemBars() {
-        WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController == null) {
-            return;
-        }
-        // Configure the behavior of the hidden system bars
-        windowInsetsController.setSystemBarsBehavior(
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        );
-        // Hide both the status bar and the navigation bar
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
 }

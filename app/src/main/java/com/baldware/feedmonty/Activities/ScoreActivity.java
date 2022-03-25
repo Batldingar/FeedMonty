@@ -1,4 +1,4 @@
-package com.baldware.feedmonty;
+package com.baldware.feedmonty.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,13 +11,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.baldware.feedmonty.Utils.HistoryHandler;
+import com.baldware.feedmonty.R;
 
 import pl.droidsonroids.gif.GifImageView;
 
 @SuppressWarnings("Convert2Lambda")
-public class ScoreActivity extends AppCompatActivity {
+public class ScoreActivity extends FullScreenActivity {
 
     // Tags & Keys
     private final static String HIGHSCORE_KEY = "highscore";
@@ -27,6 +29,7 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideSystemBars();
         setContentView(R.layout.activity_score);
 
         // Activity Properties

@@ -13,5 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Immersive mode. -->
         <item name="android:immersive">true</item>
+        <!-- Remove title. -->
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

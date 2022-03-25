@@ -1,4 +1,4 @@
-package com.baldware.feedmonty;
+package com.baldware.feedmonty.Utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.baldware.feedmonty.R;
 
 import java.util.ArrayList;
 

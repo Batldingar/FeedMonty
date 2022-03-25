@@ -1,27 +1,29 @@
-package com.baldware.feedmonty;
+package com.baldware.feedmonty.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.baldware.feedmonty.Constants;
+import com.baldware.feedmonty.Fragments.AdvertisementDialogFragment;
+import com.baldware.feedmonty.Utils.GridViewAdapter;
+import com.baldware.feedmonty.R;
 
 import java.util.ArrayList;
 
-public class IngredientsActivity extends AppCompatActivity {
+public class IngredientsActivity extends FullScreenActivity {
 
     private static final String ADVERTISEMENT_FRAGMENT_TAG = "advertisement_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideSystemBars();
         setContentView(R.layout.activity_ingredients);
 
         // Activity Properties
