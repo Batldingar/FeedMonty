@@ -6,18 +6,26 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.baldware.feedmonty.Fragments.HintDialogFragment;
 import com.baldware.feedmonty.R;
 import com.baldware.feedmonty.Utils.HistoryHandler;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import pl.droidsonroids.gif.GifImageView;
 
 public class MixingActivity extends FullScreenActivity {
+
+    // Variables
+    private Timer mTimer;
+    private int mMixingBonus;
 
     // Tags & Keys
     public final static String MIXING_HINT_KEY = "mixing_hint";
@@ -42,8 +50,9 @@ public class MixingActivity extends FullScreenActivity {
         imageViewThree.setImageResource(imageIDArray[2]);
 
         // UI Animation
-        Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
         GifImageView gifImageView = findViewById(R.id.mixing_gif);
+        TextView textview = findViewById(R.id.mixing_bonus_text_view);
+        Animation leftwardsAppear = AnimationUtils.loadAnimation(this, R.anim.leftwards_appear);
         leftwardsAppear.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -93,11 +102,38 @@ public class MixingActivity extends FullScreenActivity {
                                             hintDialogFragment.show(MixingActivity.this.getSupportFragmentManager(), MIXING_HINT_FRAGMENT_TAG);
                                         }
 
-                                        gifImageView.setOnClickListener(new View.OnClickListener() {
+                                        // Showing/animating the "value picker"
+                                        textview.setVisibility(View.VISIBLE);
+                                        mMixingBonus = 0;
+                                        mTimer = new Timer();
+                                        mTimer.scheduleAtFixedRate(new TimerTask() {
+                                            final Random random = new Random();
+                                            @Override
+                                            public void run() {
+                                                int tempValue;
+                                                do {
+                                                    tempValue = (random.nextInt(11));
+                                                } while (tempValue == mMixingBonus);
+                                                mMixingBonus = tempValue;
+
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        textview.setText(getResources().getString(R.string.mixing_bonus_text, mMixingBonus));
+                                                    }
+                                                });
+                                            }
+                                        }, 0, 400);
+
+                                        // On click method for the constraint layout (the whole screen)
+                                        ConstraintLayout constraintLayout = findViewById(R.id.mixing_constraint_layout);
+                                        constraintLayout.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Animation leftwardsDisappear = AnimationUtils.loadAnimation(MixingActivity.this, R.anim.leftwards_disappear);
+                                                gifImageView.setFreezesAnimation(true);
+                                                mTimer.cancel();
 
+                                                Animation leftwardsDisappear = AnimationUtils.loadAnimation(MixingActivity.this, R.anim.leftwards_disappear);
                                                 leftwardsDisappear.setAnimationListener(new Animation.AnimationListener() {
                                                     @Override
                                                     public void onAnimationStart(Animation animation) {
@@ -107,8 +143,9 @@ public class MixingActivity extends FullScreenActivity {
                                                     @Override
                                                     public void onAnimationEnd(Animation animation) {
                                                         gifImageView.setVisibility(View.INVISIBLE);
+                                                        textview.setVisibility(View.INVISIBLE);
                                                         Intent intent = new Intent(MixingActivity.this, ScoreActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                                        intent.putExtra("score", chosenValue + (new Random().nextInt(10) - 8)); // random from -8 to 1 so that the score can change but can't go over 80
+                                                        intent.putExtra("score", chosenValue + mMixingBonus);
                                                         startActivity(intent);
 
                                                         // Finish this activity so that when the next one opens the back button
@@ -123,6 +160,8 @@ public class MixingActivity extends FullScreenActivity {
                                                 });
 
                                                 gifImageView.startAnimation(leftwardsDisappear);
+                                                leftwardsDisappear.setStartOffset(750);
+                                                textview.startAnimation(leftwardsDisappear);
                                             }
                                         });
                                     }
@@ -132,7 +171,6 @@ public class MixingActivity extends FullScreenActivity {
 
                                     }
                                 });
-                                backwardsDisappearThree.setStartOffset(1000);
                                 imageViewThree.startAnimation(backwardsDisappearThree);
                             }
 
@@ -141,7 +179,6 @@ public class MixingActivity extends FullScreenActivity {
 
                             }
                         });
-                        backwardsDisappearTwo.setStartOffset(1000);
                         imageViewTwo.startAnimation(backwardsDisappearTwo);
                     }
 
@@ -150,7 +187,6 @@ public class MixingActivity extends FullScreenActivity {
 
                     }
                 });
-                backwardsDisappearOne.setStartOffset(1000);
                 imageViewOne.startAnimation(backwardsDisappearOne);
             }
 
@@ -160,5 +196,11 @@ public class MixingActivity extends FullScreenActivity {
             }
         });
         gifImageView.startAnimation(leftwardsAppear);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTimer.cancel();
     }
 }

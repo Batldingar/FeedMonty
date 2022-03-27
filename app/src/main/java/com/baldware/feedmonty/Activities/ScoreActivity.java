@@ -59,21 +59,19 @@ public class ScoreActivity extends FullScreenActivity {
 
             @Override
             public void onFinish() {
-                if (score <= 10) {
+                if (score <= 5) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_1);
                 } else if (score <= 20) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_2);
-                } else if (score <= 30) {
+                } else if (score <= 35) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_3);
-                } else if (score <= 40) {
-                    gifImageView.setBackgroundResource(R.drawable.monty_result_4);
                 } else if (score <= 50) {
+                    gifImageView.setBackgroundResource(R.drawable.monty_result_4);
+                } else if (score <= 75) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_5);
-                } else if (score <= 60) {
+                } else if (score <= 90) {
                     gifImageView.setBackgroundResource(R.drawable.monty_result_6);
-                } else if (score <= 70) {
-                    gifImageView.setBackgroundResource(R.drawable.monty_result_7);
-                } else if (score <= 80) {
+                } else if (score <= 100) {
                     // Future update should replace this one with a new animation
                     gifImageView.setBackgroundResource(R.drawable.monty_result_7);
                 }

@@ -16,25 +16,35 @@ import com.baldware.feedmonty.R;
 
 public class PrivacyDialogFragment extends DialogFragment {
 
+    /**
+     * Constructor
+     */
     public PrivacyDialogFragment() {
         // Empty constructor required
     }
 
-    public static PrivacyDialogFragment newInstance(String title) {
+    /**
+     * Returns a new dialog fragment instance
+     * @param _title The dialog fragments title
+     * @return The new dialog fragment instance
+     */
+    public static PrivacyDialogFragment newInstance(String _title) {
         PrivacyDialogFragment privacyDialogFragment = new PrivacyDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString("title", _title);
         privacyDialogFragment.setArguments(args);
         return privacyDialogFragment;
     }
 
+    /**
+     * The dialog fragments on create method
+     * @param _savedInstanceState The saved instance state
+     * @return The created dialog fragment
+     */
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        String title = null;
-        if (getArguments() != null) {
-            title = getArguments().getString("title");
-        }
+    public Dialog onCreateDialog(@Nullable Bundle _savedInstanceState) {
+        String title = getArguments().getString("title");
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View dialogView = layoutInflater.inflate(R.layout.fragment_privacy_policy, null);

@@ -40,8 +40,10 @@ public class MainActivity extends FullScreenActivity {
         hideSystemBars();
         setContentView(R.layout.activity_main);
 
-        // TODO: Remove titles in all activities and replace them with alert dialogues that show up only ones
-        // TODO: Update the privace policy
+        // TODO: Update the privacy policy
+        // TODO: Comment/Rework the history handler
+        // TODO: Rework the Fragments
+        // TODO: Make every screen scrollable (scrollview) and test for all sizes and orientations
 
         // Showing the privacy dialog fragment on first start up
         HistoryHandler historyHandler = new HistoryHandler(this, HISTORY_FILE_TAG);
