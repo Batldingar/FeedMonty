@@ -123,7 +123,7 @@ public class MixingActivity extends FullScreenActivity {
                                                     }
                                                 });
                                             }
-                                        }, 0, 400);
+                                        }, 0, 450);
 
                                         // On click method for the constraint layout (the whole screen)
                                         ConstraintLayout constraintLayout = findViewById(R.id.mixing_constraint_layout);
